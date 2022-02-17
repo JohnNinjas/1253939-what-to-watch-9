@@ -9,8 +9,6 @@ type PromoFilmCard = {
 
 const FILM_COUNT = 20;
 
-let globalId = 0;
-
 function MainScreen({title, genre, releaseDate}: PromoFilmCard): JSX.Element {
   return (
     <>
@@ -112,8 +110,8 @@ function MainScreen({title, genre, releaseDate}: PromoFilmCard): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            {[...Array(FILM_COUNT).keys()].map(() => (
-              <FilmCard key={globalId++} />
+            {[...Array(FILM_COUNT).keys()].map((index) => (
+              <FilmCard key={index} />
             ))}
           </div>
 

@@ -53,7 +53,7 @@ function MoviePage(): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link to="/films/:id/review" className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@ function MoviePage(): JSX.Element {
                     <a href="#" className="film-nav__link">Details</a>
                   </li>
                   <li className="film-nav__item">
-                    <Link to="/films/:id/review" className="film-nav__link">Reviews</Link>
+                    <a href="#" className="film-nav__link">Reviews</a>
                   </li>
                 </ul>
               </nav>

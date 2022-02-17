@@ -6,8 +6,7 @@ import MyList from '../my-list/my-list';
 import NotFoundPage from '../404/not-found-page';
 import SignIn from '../sign-in/sign-in';
 import PrivateRoute from '../private-route/private-route';
-
-import MoviePageReviews from '../movie-page-reviews/movie-page-reviews';
+import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 
 type AppPromoFilmCard = {
@@ -29,7 +28,7 @@ function App({title, genre, releaseDate}: AppPromoFilmCard): JSX.Element {
         }
         />
         <Route path={AppRoutes.Film} element={<MoviePage />} />
-        <Route path={AppRoutes.AddReview} element={<MoviePageReviews />} />
+        <Route path={AppRoutes.AddReview} element={<AddReview />} />
         <Route path={AppRoutes.Player} element={<Player />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
