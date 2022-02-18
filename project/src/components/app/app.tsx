@@ -1,4 +1,13 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AppRoutes, AuthorizationStatus } from '../../constants';
 import MainScreen from '../main-screen/main-screen';
+import MoviePage from '../movie-page/movie-page';
+import MyList from '../my-list/my-list';
+import NotFoundPage from '../404/not-found-page';
+import SignIn from '../sign-in/sign-in';
+import PrivateRoute from '../private-route/private-route';
+import AddReview from '../add-review/add-review';
+import Player from '../player/player';
 
 type AppPromoFilmCard = {
   title: string,
@@ -7,7 +16,24 @@ type AppPromoFilmCard = {
 };
 
 function App({title, genre, releaseDate}: AppPromoFilmCard): JSX.Element {
-  return <MainScreen title={title} genre={genre} releaseDate={releaseDate}/>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path={AppRoutes.Main} element={<MainScreen title={title} genre={genre} releaseDate={releaseDate} />} />
+        <Route path={AppRoutes.SignIn} element={<SignIn />} />
+        <Route path={AppRoutes.MyList} element={
+          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <MyList />
+          </PrivateRoute>
+        }
+        />
+        <Route path={AppRoutes.Film} element={<MoviePage />} />
+        <Route path={AppRoutes.AddReview} element={<AddReview />} />
+        <Route path={AppRoutes.Player} element={<Player />} />
+        <Route path='*' element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

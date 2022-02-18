@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function MoviePage(): JSX.Element {
   return(
     <>
@@ -11,11 +13,11 @@ function MoviePage(): JSX.Element {
 
           <header className="page-header film-card__head">
             <div className="logo">
-              <a href="main.html" className="logo__link">
+              <Link to="/" className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
 
             <ul className="user-block">
@@ -51,7 +53,7 @@ function MoviePage(): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link to="/films/:id/review" className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>

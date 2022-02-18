@@ -1,10 +1,13 @@
 import FilmCard from '../film-card/film-card';
+import { Link } from 'react-router-dom';
 
 type PromoFilmCard = {
   title: string,
   genre: string,
   releaseDate: number
 };
+
+const FILM_COUNT = 20;
 
 function MainScreen({title, genre, releaseDate}: PromoFilmCard): JSX.Element {
   return (
@@ -32,7 +35,7 @@ function MainScreen({title, genre, releaseDate}: PromoFilmCard): JSX.Element {
               </div>
             </li>
             <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
+              <Link to='/login' className="user-block__link">Sign out</Link>
             </li>
           </ul>
         </header>
@@ -107,26 +110,9 @@ function MainScreen({title, genre, releaseDate}: PromoFilmCard): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
-            <FilmCard/>
+            {[...Array(FILM_COUNT).keys()].map((index) => (
+              <FilmCard key={index} />
+            ))}
           </div>
 
           <div className="catalog__more">

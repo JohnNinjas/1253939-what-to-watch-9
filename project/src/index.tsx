@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
 const promoFilmParams = {
-  title: 'The Grand Budapest Hotel',
   genre: 'Drama',
   releaseDate: 2014,
+  title: 'The Grand Budapest Hotel',
 };
 
 ReactDOM.render(
