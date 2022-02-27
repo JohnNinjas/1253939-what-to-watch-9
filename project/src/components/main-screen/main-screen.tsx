@@ -1,15 +1,17 @@
-import FilmCard from '../film-card/film-card';
 import { Link } from 'react-router-dom';
+import { Film } from '../../types/film';
+import FilmsList from '../film-list/film-list';
 
 type PromoFilmCard = {
-  title: string,
-  genre: string,
-  releaseDate: number
+  promo: {
+    title: string,
+    genre: string,
+    releaseDate: number
+  },
+  films: Film[],
 };
 
-const FILM_COUNT = 20;
-
-function MainScreen({title, genre, releaseDate}: PromoFilmCard): JSX.Element {
+function MainScreen({promo, films}: PromoFilmCard): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -47,10 +49,10 @@ function MainScreen({title, genre, releaseDate}: PromoFilmCard): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">{promo.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{releaseDate}</span>
+                <span className="film-card__genre">{promo.genre}</span>
+                <span className="film-card__year">{promo.releaseDate}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -109,11 +111,7 @@ function MainScreen({title, genre, releaseDate}: PromoFilmCard): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {[...Array(FILM_COUNT).keys()].map((index) => (
-              <FilmCard key={index} />
-            ))}
-          </div>
+          <FilmsList films={films}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

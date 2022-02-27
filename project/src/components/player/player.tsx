@@ -1,9 +1,32 @@
-function Player(): JSX.Element {
+import {MouseEvent} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {Film} from '../../types/film';
+import NotFoundPage from '../404/not-found-page';
+
+
+type PlayerProps = {
+  films: Film[],
+};
+
+function Player({films}: PlayerProps): JSX.Element {
+  const navigate = useNavigate();
+  const params = useParams();
+  const currentFilm = films.find((film) => film.id === Number(params.id));
+
+  if (!currentFilm) {
+    return <NotFoundPage />;
+  }
+
+  const clickExitHandler = (evt: MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
+    navigate(-1);
+  };
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={currentFilm.movieLink} className="player__video" poster="img/player-poster.jpg"></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button type="button" className="player__exit" onClick={clickExitHandler}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -21,7 +44,7 @@ function Player(): JSX.Element {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{currentFilm.title}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">

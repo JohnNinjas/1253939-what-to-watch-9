@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
+import { films } from './mocks/films';
 
 const promoFilmParams = {
   genre: 'Drama',
@@ -10,6 +11,6 @@ const promoFilmParams = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App title={promoFilmParams.title} genre={promoFilmParams.genre} releaseDate={promoFilmParams.releaseDate} />
+    <App promo={promoFilmParams} films={films} />
   </React.StrictMode>,
   document.getElementById('root'));
