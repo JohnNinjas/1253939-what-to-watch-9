@@ -1,58 +1,54 @@
-import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import {Film} from '../../types/film';
+import { useEffect, useRef, useState } from 'react';
 
-type VideoPlayerProps = {
-  autoPlay: boolean,
-  film: Film,
+type PlayerProps = {
+  src: string;
+  poster: string;
+  isActive: boolean;
+  isPreview: boolean;
 }
 
-function VideoPlayer({autoPlay, film}: VideoPlayerProps): JSX.Element {
-  const {id, poster, previewVideoLink, title} = film;
-  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+function Player({src, poster, isActive, isPreview}: PlayerProps) {
+  const [, setIsLoading] = useState(true);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  const onMouseEnterHandler = () => {
-    setTimer(setTimeout(() => {
-      if(!isLoading) {
-        videoRef.current && videoRef.current.play();
-      }
-    }, 1000));
-  };
-
-  const onMouseLeaveHandler = () => {
-    if(timer) {
-      clearTimeout(timer);
-      setTimer(null);
-      videoRef.current && videoRef.current.load();
-
+  useEffect(() => {
+    if (videoRef.current !== null) {
+      videoRef.current.onloadeddata = () => setIsLoading(false);
     }
-  };
+
+    return () => {
+      if (videoRef.current !== null){
+        videoRef.current.onloadeddata = null;
+        videoRef.current = null;
+      }
+    };
+  }, [src]);
+
+  useEffect(() => {
+    if (videoRef.current === null) {
+      return;
+    }
+
+    if (isActive) {
+      videoRef.current.muted = isPreview;
+      videoRef.current.play();
+    }
+
+    if (!isActive) {
+      videoRef.current.load();
+    }
+
+  }, [isActive, isPreview]);
 
   return (
-    <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
-      <div className="small-film-card__image">
-        <video
-          ref={videoRef}
-          src={previewVideoLink}
-          poster={poster}
-          muted
-          autoPlay={autoPlay}
-          onLoadedData={() => {
-            setIsLoading(false);
-          }}
-          width="100%"
-          height="100%"
-        >
-        </video>
-      </div>
-      <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{title}</Link>
-      </h3>
-    </article>
+    <video
+      className="player__video"
+      src={src}
+      poster={poster}
+      ref={videoRef}
+    />
   );
 }
 
-export default VideoPlayer;
+export default Player;
