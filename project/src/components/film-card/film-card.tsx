@@ -1,5 +1,7 @@
 import { Film } from '../../types/film';
-import { Link } from 'react-router-dom';
+import VideoPlayer from '../video-player/video-player';
+import {Link} from 'react-router-dom';
+import {ONE_SECOND_IN_MILLISECONDS} from '../../constants';
 
 type FilmCardProps = {
   film: Film,
@@ -8,19 +10,32 @@ type FilmCardProps = {
 };
 
 function FilmCard({film, isActive, onHover}: FilmCardProps): JSX.Element {
+  const {id, title, previewVideoLink, poster} = film;
+  let playTimer: NodeJS.Timeout;
+
+  const onMouseEnterHandler = () => {
+    playTimer = setTimeout(() => {
+      onHover(id);
+    }, ONE_SECOND_IN_MILLISECONDS);
+  };
+
+  const onMouseLeaveHandler = () => {
+    clearTimeout(playTimer);
+    onHover(0);
+  };
+
   return (
-    <article
-      className="small-film-card catalog__films-card"
-      onMouseEnter={() => onHover(film.id)}
-      onMouseLeave={() => onHover(null)}
-    >
+    <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
       <div className="small-film-card__image">
-        <img src={film.previewImg} alt={film.title} width="280" height="175"/>
+        <VideoPlayer
+          src={previewVideoLink}
+          poster={poster}
+          isActive={isActive}
+          isPreview
+        />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${film.id}`}>
-          {film.title}
-        </Link>
+        <Link className="small-film-card__link" to={`/films/${id}`}>{title}</Link>
       </h3>
     </article>
   );
