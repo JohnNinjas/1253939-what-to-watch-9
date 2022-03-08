@@ -3,6 +3,7 @@ import {MouseEvent} from 'react';
 import {Film} from '../../types/film';
 import FilmsList from '../film-list/film-list';
 import NotFoundPage from '../404/not-found-page';
+import Tabs from '../tabs/tabs';
 
 type MoviePageProps = {
   films: Film[],
@@ -76,7 +77,7 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${currentFilm.id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={`/films/${currentFilm.id}/addreview`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -89,20 +90,7 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
+              <Tabs />
               <div className="film-rating">
                 <div className="film-rating__score">{currentFilm.rating}</div>
                 <p className="film-rating__meta">
