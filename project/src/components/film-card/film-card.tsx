@@ -2,6 +2,7 @@ import { Film } from '../../types/film';
 import VideoPlayer from '../video-player/video-player';
 import {Link} from 'react-router-dom';
 import {ONE_SECOND_IN_MILLISECONDS} from '../../constants';
+import { TabNames } from '../../constants';
 
 type FilmCardProps = {
   film: Film,
@@ -35,7 +36,7 @@ function FilmCard({film, isActive, onHover}: FilmCardProps): JSX.Element {
         />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{title}</Link>
+        <Link className="small-film-card__link" to={`/films/${id}${TabNames.Overview}`}>{title}</Link>
       </h3>
     </article>
   );

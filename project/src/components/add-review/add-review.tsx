@@ -2,6 +2,7 @@ import {Link, useParams} from 'react-router-dom';
 import {Film} from '../../types/film';
 import NotFoundPage from '../404/not-found-page';
 import ReviewForm from '../review-form/review-form';
+import { TabNames } from '../../constants';
 
 type addReviewProps = {
   films: Film[],
@@ -36,7 +37,7 @@ function AddReview({films}: addReviewProps): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${currentFilm.id}/`} className="breadcrumbs__link">{currentFilm.title}</Link>
+                <Link to={`/films/${currentFilm.id}${TabNames.Overview}`} className="breadcrumbs__link">{currentFilm.title}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>

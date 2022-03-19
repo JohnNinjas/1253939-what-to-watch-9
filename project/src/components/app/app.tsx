@@ -8,9 +8,7 @@ import SignIn from '../sign-in/sign-in';
 import PrivateRoute from '../private-route/private-route';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
-import MoviePageDetails from '../movie-page-details/movie-page-details';
 import { Film } from '../../types/film';
-import MoviePageReviews from '../movie-page-reviews/movie-page-reviews';
 
 type AppPromoFilmCard = {
   promo: {
@@ -33,12 +31,8 @@ function App({promo, films}: AppPromoFilmCard): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={AppRoutes.Films}>
-          <Route path={AppRoutes.FilmOverview} element={<MoviePage films={films}/>} />
-          <Route path={AppRoutes.FilmDetails} element={<MoviePageDetails films={films}/>} />
-          <Route path={AppRoutes.FilmReviews} element={<MoviePageReviews films={films}/>} />
-          <Route path={AppRoutes.AddReview} element={<AddReview films={films} />} />
-        </Route>
+        <Route path={AppRoutes.Film} element={<MoviePage films={films}/>} />
+        <Route path={AppRoutes.AddReview} element={<AddReview films={films} />} />
         <Route path={AppRoutes.Player} element={<Player films={films} />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

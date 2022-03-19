@@ -2,11 +2,8 @@ export enum AppRoutes {
   Main=  '/',
   SignIn = '/login',
   MyList = '/mylist',
-  Films = '/films',
-  FilmOverview = ':id/overview',
-  FilmDetails = ':id/details',
-  FilmReviews = ':id/reviews',
-  AddReview = ':id/addreview',
+  Film = '/films/:id',
+  AddReview = '/films/:id/addreview',
   Player = '/player/:id',
 }
 
@@ -19,7 +16,7 @@ export enum AuthorizationStatus {
 export const ONE_SECOND_IN_MILLISECONDS = 1000;
 
 export enum TabNames {
-  Overview = '/overview',
-  Details = '/details',
-  Reviews = '/reviews',
+  Overview = '#overview',
+  Details = '#details',
+  Reviews = '#reviews',
 }
