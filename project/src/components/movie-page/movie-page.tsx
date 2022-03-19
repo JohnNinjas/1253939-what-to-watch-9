@@ -5,6 +5,7 @@ import FilmsList from '../film-list/film-list';
 import NotFoundPage from '../404/not-found-page';
 import Tabs from '../tabs/tabs';
 import CurrentTab from '../currentTab/currentTab';
+import {useAppSelector} from '../../hooks';
 
 type MoviePageProps = {
   films: Film[],
@@ -15,6 +16,7 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
   const params = useParams();
   const currentFilm = films.find((film) => film.id === Number(params.id));
   const activeTab = window.location.hash;
+  const { activeGenre } = useAppSelector((state) => state);
 
   if (!currentFilm) {
     return <NotFoundPage />;
@@ -101,7 +103,7 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={films}/>
+          <FilmsList films={films} activeGenre={activeGenre}/>
         </section>
 
         <footer className="page-footer">
