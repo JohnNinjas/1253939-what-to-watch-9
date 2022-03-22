@@ -14,6 +14,7 @@ export enum AuthorizationStatus {
 }
 
 export const ONE_SECOND_IN_MILLISECONDS = 1000;
+export const FIRST_FOUR_FILMS = 4;
 
 export enum TabNames {
   Overview = '#overview',
