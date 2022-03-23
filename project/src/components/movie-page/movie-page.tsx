@@ -1,8 +1,11 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import {MouseEvent} from 'react';
-import {Film} from '../../types/film';
-import FilmsList from '../film-list/film-list';
+import { MouseEvent, useState } from 'react';
+import { Film } from '../../types/film';
 import NotFoundPage from '../404/not-found-page';
+import Tabs from '../tabs/tabs';
+import CurrentTab from '../currentTab/currentTab';
+import FilmCard from '../film-card/film-card';
+import { FIRST_FOUR_FILMS } from '../../constants';
 
 type MoviePageProps = {
   films: Film[],
@@ -11,7 +14,11 @@ type MoviePageProps = {
 function MoviePage({films}: MoviePageProps): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
-  const currentFilm = films.find((film) => film.id === Number(params.id));
+  const currentFilm: any = films.find((film) => film.id === Number(params.id));
+  const activeTab = window.location.hash;
+  const [activeFilmId, setActiveFilmId] = useState<number | null>(null);
+  const moreSimilarFilms = films.filter((elem) => (elem.genre === currentFilm.genre) && (elem.id !== currentFilm.id));
+  const fourSimilarFilms = moreSimilarFilms.slice(0, FIRST_FOUR_FILMS);
 
   if (!currentFilm) {
     return <NotFoundPage />;
@@ -21,8 +28,6 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
     evt.preventDefault();
     navigate(`/player/${currentFilm.id}`);
   };
-
-  const filmStarring = currentFilm.starring.join(', ');
 
   return(
     <>
@@ -76,7 +81,7 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${currentFilm.id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={`/films/${currentFilm.id}/addreview`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -89,37 +94,8 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{currentFilm.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">{currentFilm.scores} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{currentFilm.description}</p>
-
-                <p className="film-card__director"><strong>Director: {currentFilm.director}</strong></p>
-
-                <p className="film-card__starring">
-                  <strong>Starring: {filmStarring} and other</strong>
-                </p>
-              </div>
+              <Tabs />
+              <CurrentTab activeTab={activeTab} films={films} />
             </div>
           </div>
         </div>
@@ -129,7 +105,14 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={films}/>
+          {fourSimilarFilms.map((film) => (
+            <FilmCard
+              key={film.id}
+              film={film}
+              isActive={film.id === activeFilmId}
+              onHover={setActiveFilmId}
+            />
+          ))}
         </section>
 
         <footer className="page-footer">

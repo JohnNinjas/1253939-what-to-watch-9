@@ -33,7 +33,7 @@ function ReviewForm(): JSX.Element {
           className="add-review__textarea"
           name="review-text"
           id="review-text"
-          placeholder="Review text"
+          placeholder="ReviewType text"
           value={reviewText}
           onChange={({target}) => setReviewText(target.value)}
         />
