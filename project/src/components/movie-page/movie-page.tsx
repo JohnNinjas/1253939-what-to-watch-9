@@ -5,7 +5,7 @@ import FilmsList from '../film-list/film-list';
 import NotFoundPage from '../404/not-found-page';
 import Tabs from '../tabs/tabs';
 import CurrentTab from '../currentTab/currentTab';
-import {useAppSelector} from '../../hooks';
+import { useAppSelector } from '../../hooks';
 
 type MoviePageProps = {
   films: Film[],

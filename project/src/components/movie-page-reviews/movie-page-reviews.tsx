@@ -1,12 +1,14 @@
 import { useParams } from 'react-router-dom';
-import {Film} from '../../types/film';
+import { Film } from '../../types/film';
 import NotFoundPage from '../404/not-found-page';
+import { ReviewType } from '../../types/reviewType';
 
 type MoviePageReviewsProps = {
   films: Film[],
+  reviews: ReviewType[],
 }
 
-function MoviePageReviews({films}: MoviePageReviewsProps): JSX.Element {
+function MoviePageReviews({films, reviews}: MoviePageReviewsProps): JSX.Element {
   const params = useParams();
   const currentFilm = films.find((film) => film.id === Number(params.id));
 
@@ -14,101 +16,28 @@ function MoviePageReviews({films}: MoviePageReviewsProps): JSX.Element {
     return <NotFoundPage />;
   }
 
+  const formatCommentDate = (date: string): string => {
+    const newDateFormat = new Date(date).toLocaleDateString();
+    return String(newDateFormat).replaceAll('.', '-');
+  };
+
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
-        <div className="review">
-          <blockquote className="review__quote">
-            <p className="review__text">Discerning travellers and Wes Anderson fans will luxuriate in the
-              glorious Mittel-European kitsch of one of the directors funniest and most exquisitely designed
-              films in years.
-            </p>
+        {reviews.map((review) => (
+          <div className="review" key={review.id}>
+            <blockquote className="review__quote">
+              <p className="review__text">{review.text}</p>
 
-            <footer className="review__details">
-              <cite className="review__author">Kate Muir</cite>
-              <time className="review__date" dateTime="2016-12-24">December 24, 2016</time>
-            </footer>
-          </blockquote>
+              <footer className="review__details">
+                <cite className="review__author">{review.author}</cite>
+                <time className="review__date" dateTime={formatCommentDate(review.date)}>{review.date}</time>
+              </footer>
+            </blockquote>
 
-          <div className="review__rating">8,9</div>
-        </div>
-
-        <div className="review">
-          <blockquote className="review__quote">
-            <p className="review__text">Andersons films are too precious for some, but for those of us
-              willing to lose ourselves in them, they are a delight. &quot;The Grand Budapest Hotel&quot; is no
-              different, except that he has added a hint of gravitas to the mix, improving the recipe.
-            </p>
-
-            <footer className="review__details">
-              <cite className="review__author">Bill Goodykoontz</cite>
-              <time className="review__date" dateTime="2015-11-18">November 18, 2015</time>
-            </footer>
-          </blockquote>
-
-          <div className="review__rating">8,0</div>
-        </div>
-
-        <div className="review">
-          <blockquote className="review__quote">
-            <p className="review__text">I did not find it amusing, and while I can appreciate the creativity,
-              it is an hour and 40 minutes I wish I could take back.
-            </p>
-
-            <footer className="review__details">
-              <cite className="review__author">Amanda Greever</cite>
-              <time className="review__date" dateTime="2015-11-18">November 18, 2015</time>
-            </footer>
-          </blockquote>
-
-          <div className="review__rating">8,0</div>
-        </div>
-      </div>
-      <div className="film-card__reviews-col">
-        <div className="review">
-          <blockquote className="review__quote">
-            <p className="review__text">The mannered, madcap proceedings are often delightful, occasionally
-              silly, and here and there, gruesome and/or heartbreaking.
-            </p>
-
-            <footer className="review__details">
-              <cite className="review__author">Matthew Lickona</cite>
-              <time className="review__date" dateTime="2016-12-20">December 20, 2016</time>
-            </footer>
-          </blockquote>
-
-          <div className="review__rating">7,2</div>
-        </div>
-
-        <div className="review">
-          <blockquote className="review__quote">
-            <p className="review__text">It is certainly a magical and childlike way of storytelling, even if
-              the content is a little more adult.
-            </p>
-
-            <footer className="review__details">
-              <cite className="review__author">Paula Fleri-Soler</cite>
-              <time className="review__date" dateTime="2016-12-20">December 20, 2016</time>
-            </footer>
-          </blockquote>
-
-          <div className="review__rating">7,6</div>
-        </div>
-
-        <div className="review">
-          <blockquote className="review__quote">
-            <p className="review__text">It is certainly a magical and childlike way of storytelling, even if
-              the content is a little more adult.
-            </p>
-
-            <footer className="review__details">
-              <cite className="review__author">Paula Fleri-Soler</cite>
-              <time className="review__date" dateTime="2016-12-20">December 20, 2016</time>
-            </footer>
-          </blockquote>
-
-          <div className="review__rating">7,0</div>
-        </div>
+            <div className="review__rating">{review.rating}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
