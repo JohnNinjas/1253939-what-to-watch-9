@@ -1,11 +1,10 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import {MouseEvent} from 'react';
-import {Film} from '../../types/film';
+import { MouseEvent } from 'react';
+import { Film } from '../../types/film';
 import FilmsList from '../film-list/film-list';
 import NotFoundPage from '../404/not-found-page';
 import Tabs from '../tabs/tabs';
 import CurrentTab from '../currentTab/currentTab';
-import { useAppSelector } from '../../hooks';
 
 type MoviePageProps = {
   films: Film[],
@@ -16,7 +15,6 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
   const params = useParams();
   const currentFilm = films.find((film) => film.id === Number(params.id));
   const activeTab = window.location.hash;
-  const { activeGenre } = useAppSelector((state) => state);
 
   if (!currentFilm) {
     return <NotFoundPage />;
@@ -103,7 +101,7 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList films={films} activeGenre={activeGenre}/>
+          <FilmsList films={films} activeGenre={currentFilm.genre} currentFilmId={currentFilm.id} />
         </section>
 
         <footer className="page-footer">
