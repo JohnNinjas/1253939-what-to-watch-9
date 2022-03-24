@@ -1,11 +1,10 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent } from 'react';
 import { Film } from '../../types/film';
+import FilmsList from '../film-list/film-list';
 import NotFoundPage from '../404/not-found-page';
 import Tabs from '../tabs/tabs';
 import CurrentTab from '../currentTab/currentTab';
-import FilmCard from '../film-card/film-card';
-import { FIRST_FOUR_FILMS } from '../../constants';
 
 type MoviePageProps = {
   films: Film[],
@@ -14,11 +13,8 @@ type MoviePageProps = {
 function MoviePage({films}: MoviePageProps): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
-  const currentFilm: any = films.find((film) => film.id === Number(params.id));
+  const currentFilm = films.find((film) => film.id === Number(params.id));
   const activeTab = window.location.hash;
-  const [activeFilmId, setActiveFilmId] = useState<number | null>(null);
-  const moreSimilarFilms = films.filter((elem) => (elem.genre === currentFilm.genre) && (elem.id !== currentFilm.id));
-  const fourSimilarFilms = moreSimilarFilms.slice(0, FIRST_FOUR_FILMS);
 
   if (!currentFilm) {
     return <NotFoundPage />;
@@ -105,14 +101,7 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          {fourSimilarFilms.map((film) => (
-            <FilmCard
-              key={film.id}
-              film={film}
-              isActive={film.id === activeFilmId}
-              onHover={setActiveFilmId}
-            />
-          ))}
+          <FilmsList films={films} activeGenre={currentFilm.genre} currentFilmId={currentFilm.id} />
         </section>
 
         <footer className="page-footer">

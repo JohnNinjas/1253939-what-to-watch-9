@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 import { Film } from '../../types/film';
 import FilmsList from '../film-list/film-list';
+import {useAppSelector} from '../../hooks';
 
 type MyListProps = {
   films: Film[],
 }
 
 function MyList({films}: MyListProps): JSX.Element {
+  const { activeGenre } = useAppSelector((state) => state);
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -35,7 +38,7 @@ function MyList({films}: MyListProps): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmsList films={films}/>
+        <FilmsList films={films} activeGenre={activeGenre} />
       </section>
 
       <footer className="page-footer">

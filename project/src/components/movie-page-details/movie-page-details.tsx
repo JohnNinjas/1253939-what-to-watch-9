@@ -2,6 +2,8 @@ import { useParams } from 'react-router-dom';
 import { Film } from '../../types/film';
 import NotFoundPage from '../404/not-found-page';
 
+const MINUTES_IN_HOURS = 60;
+
 type MoviePageDetailsProps = {
   films: Film[],
 }
@@ -11,9 +13,9 @@ function MoviePageDetails({films}: MoviePageDetailsProps): JSX.Element {
   const currentFilm = films.find((film) => film.id === Number(params.id));
 
   const convertRuntime = (mins: number): string => {
-    const hours = Math.trunc(mins/60);
-    const minutes = mins % 60;
-    return `${hours}h. ${minutes}m.`;
+    const hours = Math.trunc(mins/MINUTES_IN_HOURS);
+    const minutes = mins % MINUTES_IN_HOURS;
+    return `${hours}h ${minutes}m`;
   };
 
   if (!currentFilm) {
