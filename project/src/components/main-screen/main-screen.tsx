@@ -3,6 +3,7 @@ import { Film } from '../../types/film';
 import FilmsList from '../film-list/film-list';
 import GenreList from '../../components/genres/genres';
 import { useAppSelector } from '../../hooks';
+import ShowMore from  '../show-more/show-more';
 
 type PromoFilmCard = {
   promo: {
@@ -14,7 +15,9 @@ type PromoFilmCard = {
 };
 
 function MainScreen({promo, films}: PromoFilmCard): JSX.Element {
-  const { activeGenre } = useAppSelector((state) => state);
+  const { activeGenre, filmsCount } = useAppSelector((state) => state);
+  const filmsByCurrentGenre = films.filter((film) => film.genre === activeGenre);
+  const activeGenreFilms = activeGenre !== 'All genres' ? filmsByCurrentGenre : films;
 
   return (
     <>
@@ -84,11 +87,9 @@ function MainScreen({promo, films}: PromoFilmCard): JSX.Element {
 
           <GenreList films={films} activeGenre={activeGenre} />
 
-          <FilmsList films={films} activeGenre={activeGenre}/>
+          <FilmsList films={activeGenreFilms.slice(0, filmsCount)} activeGenre={activeGenre}/>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {(activeGenreFilms.length - filmsCount) > 0 ? <ShowMore /> : null}
         </section>
 
         <footer className="page-footer">
