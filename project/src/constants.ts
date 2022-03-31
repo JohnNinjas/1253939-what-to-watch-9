@@ -14,7 +14,8 @@ export enum AuthorizationStatus {
 }
 
 export const ONE_SECOND_IN_MILLISECONDS = 1000;
-export const FIRST_FOUR_FILMS = 4;
+export const FILMS_COUNT = 8;
+export const ALL_GENRES_TITLE = 'All genres';
 
 export enum TabNames {
   Overview = '#overview',

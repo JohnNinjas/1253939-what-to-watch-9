@@ -1,4 +1,5 @@
 import { Film } from './types/film';
+import { ALL_GENRES_TITLE } from './constants';
 
 type Genre = {
   id: number;
@@ -10,9 +11,9 @@ export const getCatalogGenre = (genre:string) => genre;
 export const getGenreList = (films: Film[]) => {
   const collectedGenres: string[] = [];
 
-  films.forEach((film) => collectedGenres.push(film.genre));
+  films.filter((film) => collectedGenres.push(film.genre));
 
-  const uniqueGenres = ['All genres',...new Set(collectedGenres)];
+  const uniqueGenres = [ALL_GENRES_TITLE,...new Set(collectedGenres)];
   const catalogGenres: Genre[] = [];
 
   uniqueGenres.map((genre, index) =>
