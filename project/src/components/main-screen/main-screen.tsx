@@ -4,6 +4,7 @@ import FilmsList from '../film-list/film-list';
 import GenreList from '../../components/genres/genres';
 import { useAppSelector } from '../../hooks';
 import ShowMore from  '../show-more/show-more';
+import { ALL_GENRES_TITLE } from '../../constants';
 
 type PromoFilmCard = {
   promo: {
@@ -17,7 +18,7 @@ type PromoFilmCard = {
 function MainScreen({promo, films}: PromoFilmCard): JSX.Element {
   const { activeGenre, filmsCount } = useAppSelector((state) => state);
   const filmsByCurrentGenre = films.filter((film) => film.genre === activeGenre);
-  const activeGenreFilms = activeGenre !== 'All genres' ? filmsByCurrentGenre : films;
+  const activeGenreFilms = activeGenre !== ALL_GENRES_TITLE ? filmsByCurrentGenre : films;
 
   return (
     <>

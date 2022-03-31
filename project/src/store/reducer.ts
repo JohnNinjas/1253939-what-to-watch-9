@@ -3,7 +3,7 @@ import {
   changeGenre,
   getFilmsOfGenre,
   incrementFilmsCount,
-  resetFilmsCount
+  resetFilmsCount, resetFilmsGenre
 } from './action';
 import { films } from '../mocks/films';
 import { State } from '../types/state';
@@ -23,6 +23,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getFilmsOfGenre, (state) => {
       state.films = films;
+    })
+    .addCase(resetFilmsGenre, (state) => {
+      state.activeGenre = ALL_GENRES_TITLE;
     })
     .addCase(incrementFilmsCount, (state) => {
       state.filmsCount +=FILMS_COUNT;

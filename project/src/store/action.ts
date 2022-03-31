@@ -4,6 +4,8 @@ export const changeGenre = createAction<string>('genres/genreChange');
 
 export const getFilmsOfGenre = createAction('filmList/getFilmsOfGenre');
 
+export const resetFilmsGenre = createAction('genres/resetFilmsGenre');
+
 export const incrementFilmsCount = createAction('main/incFilmsCount');
 
 export const resetFilmsCount = createAction('main/resetFilmsCount');
