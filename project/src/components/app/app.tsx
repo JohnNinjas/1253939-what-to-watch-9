@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { AppRoutes, AuthorizationStatus } from '../../constants';
+import { AppRoutes } from '../../constants';
 import MainScreen from '../main-screen/main-screen';
 import MoviePage from '../movie-page/movie-page';
 import MyList from '../my-list/my-list';
@@ -27,7 +27,7 @@ function App(): JSX.Element {
         <Route path={AppRoutes.Main} element={<MainScreen promo={promo} films={films} />} />
         <Route path={AppRoutes.SignIn} element={<SignIn />} />
         <Route path={AppRoutes.MyList} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+          <PrivateRoute>
             <MyList films={films} />
           </PrivateRoute>
         }

@@ -5,8 +5,7 @@ import FilmsList from '../film-list/film-list';
 import NotFoundPage from '../404/not-found-page';
 import Tabs from '../tabs/tabs';
 import CurrentTab from '../currentTab/currentTab';
-import { useAppDispatch } from '../../hooks';
-import { resetFilmsGenre } from '../../store/action';
+import Header from '../header/header';
 
 type MoviePageProps = {
   films: Film[],
@@ -15,7 +14,6 @@ type MoviePageProps = {
 function MoviePage({films}: MoviePageProps): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
-  const dispatch = useAppDispatch();
   const currentFilm = films.find((film) => film.id === Number(params.id));
   const activeTab = window.location.hash;
 
@@ -38,26 +36,7 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header film-card__head">
-            <div className="logo">
-              <Link to="/" className="logo__link" onClick={() => dispatch(resetFilmsGenre())}>
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
+          <Header />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">

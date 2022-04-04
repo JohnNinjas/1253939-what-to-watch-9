@@ -6,9 +6,12 @@ import {
   resetFilmsGenre,
   getFilms,
   getPromoFilm,
-  setError
+  setError,
+  requireAuthorization,
+  setUser,
+  resetUser
 } from './action';
-import { FILMS_COUNT, ALL_GENRES_TITLE } from '../constants';
+import { FILMS_COUNT, ALL_GENRES_TITLE, AuthorizationStatus } from '../constants';
 import { InitialState } from '../types/initial-state';
 
 const initialState: InitialState = {
@@ -18,6 +21,8 @@ const initialState: InitialState = {
   isDataLoaded: false,
   promo: null,
   error: '',
+  requireAuthorization: AuthorizationStatus.Unknown,
+  user: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -43,6 +48,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.requireAuthorization = action.payload;
+    })
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload;
+    })
+    .addCase(resetUser, (state) => {
+      state.user = null;
     });
 });
 

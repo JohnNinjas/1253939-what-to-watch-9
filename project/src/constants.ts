@@ -27,6 +27,9 @@ export enum TabNames {
 export enum APIRoute {
   Films = '/films',
   Promo = '/promo',
+  Login = '/login',
+  Logout = '/logout',
+  Error404 = '/404',
 }
 
 export enum HTTP_CODE {
