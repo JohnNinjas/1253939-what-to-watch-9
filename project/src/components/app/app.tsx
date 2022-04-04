@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoutes, AuthorizationStatus } from '../../constants';
 import MainScreen from '../main-screen/main-screen';
 import MoviePage from '../movie-page/movie-page';
@@ -8,20 +8,21 @@ import SignIn from '../sign-in/sign-in';
 import PrivateRoute from '../private-route/private-route';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
-import { Film } from '../../types/film';
+import { useAppSelector } from '../../hooks';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
+import Spinner from '../spinner/spinner';
 
-type AppPromoFilmCard = {
-  promo: {
-    title: string,
-    genre: string,
-    releaseDate: number
-  },
-  films: Film[],
-};
 
-function App({promo, films}: AppPromoFilmCard): JSX.Element {
+function App(): JSX.Element {
+  const { films, promo, isDataLoaded } = useAppSelector((state) => state);
+
+  if (!isDataLoaded || promo === null) {
+    return (<Spinner />);
+  }
+
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoutes.Main} element={<MainScreen promo={promo} films={films} />} />
         <Route path={AppRoutes.SignIn} element={<SignIn />} />
@@ -36,7 +37,7 @@ function App({promo, films}: AppPromoFilmCard): JSX.Element {
         <Route path={AppRoutes.Player} element={<Player films={films} />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

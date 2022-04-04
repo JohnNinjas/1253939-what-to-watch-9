@@ -1,20 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import { films } from './mocks/films';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { fetchFilmAction, fetchPromoFilmAction } from './store/api-action';
+import ErrorMessage from './components/error-message/error-message';
 
-const promoFilmParams = {
-  genre: 'Drama',
-  releaseDate: 2014,
-  title: 'The Grand Budapest Hotel',
-};
+store.dispatch(fetchFilmAction());
+store.dispatch(fetchPromoFilmAction());
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store= {store}>
-      <App promo={promoFilmParams} films={films} />
+    <Provider store={store}>
+      <ErrorMessage />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

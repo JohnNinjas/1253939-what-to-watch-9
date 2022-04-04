@@ -24,7 +24,7 @@ function Player({films}: PlayerProps): JSX.Element {
 
   return (
     <div className="player">
-      <video src={currentFilm.movieLink} className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={currentFilm.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
 
       <button type="button" className="player__exit" onClick={clickExitHandler}>Exit</button>
 
@@ -44,7 +44,7 @@ function Player({films}: PlayerProps): JSX.Element {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">{currentFilm.title}</div>
+          <div className="player__name">{currentFilm.name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">

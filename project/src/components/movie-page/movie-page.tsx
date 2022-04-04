@@ -33,14 +33,14 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
       <section className="film-card film-card--full" style={{backgroundColor: currentFilm.backgroundColor}}>
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={currentFilm.backgroundImg} alt={currentFilm.title} />
+            <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
             <div className="logo">
-              <Link to="/" className="logo__link" onClick={dispatch(resetFilmsGenre())}>
+              <Link to="/" className="logo__link" onClick={() => dispatch(resetFilmsGenre())}>
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
@@ -61,10 +61,10 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{currentFilm.title}</h2>
+              <h2 className="film-card__title">{currentFilm.name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{currentFilm.genre}</span>
-                <span className="film-card__year">{currentFilm.releaseDate}</span>
+                <span className="film-card__year">{currentFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -89,7 +89,7 @@ function MoviePage({films}: MoviePageProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={currentFilm.poster} alt={currentFilm.title} width="218" height="327"/>
+              <img src={currentFilm.posterImage} alt={currentFilm.name} width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">

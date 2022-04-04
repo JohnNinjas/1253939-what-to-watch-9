@@ -20,7 +20,7 @@ function AddReview({films}: addReviewProps): JSX.Element {
     <section className="film-card film-card--full" style={{background: currentFilm.backgroundColor}}>
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={currentFilm.backgroundImg} alt={currentFilm.title}/>
+          <img src={currentFilm.backgroundImage} alt={currentFilm.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -37,7 +37,7 @@ function AddReview({films}: addReviewProps): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${currentFilm.id}${TabNames.Overview}`} className="breadcrumbs__link">{currentFilm.title}</Link>
+                <Link to={`/films/${currentFilm.id}${TabNames.Overview}`} className="breadcrumbs__link">{currentFilm.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -58,7 +58,7 @@ function AddReview({films}: addReviewProps): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={currentFilm.poster} alt={currentFilm.title} width="218" height="327"/>
+          <img src={currentFilm.posterImage} alt={currentFilm.name} width="218" height="327"/>
         </div>
       </div>
 

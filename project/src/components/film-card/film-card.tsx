@@ -11,7 +11,7 @@ type FilmCardProps = {
 };
 
 function FilmCard({film, isActive, onHover}: FilmCardProps): JSX.Element {
-  const {id, title, previewVideoLink, previewImg} = film;
+  const {id, name, previewVideoLink, previewImage} = film;
   let playTimer: NodeJS.Timeout;
 
   const onMouseEnterHandler = () => {
@@ -30,13 +30,13 @@ function FilmCard({film, isActive, onHover}: FilmCardProps): JSX.Element {
       <div className="small-film-card__image">
         <VideoPlayer
           src={previewVideoLink}
-          poster={previewImg}
+          poster={previewImage}
           isActive={isActive}
           isPreview
         />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}${TabNames.Overview}`}>{title}</Link>
+        <Link className="small-film-card__link" to={`/films/${id}${TabNames.Overview}`}>{name}</Link>
       </h3>
     </article>
   );

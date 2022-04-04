@@ -1,19 +1,23 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
   changeGenre,
-  getFilmsOfGenre,
   incrementFilmsCount,
-  resetFilmsCount, resetFilmsGenre
+  resetFilmsCount,
+  resetFilmsGenre,
+  getFilms,
+  getPromoFilm,
+  setError
 } from './action';
-import { films } from '../mocks/films';
-import { State } from '../types/state';
 import { FILMS_COUNT, ALL_GENRES_TITLE } from '../constants';
+import { InitialState } from '../types/initial-state';
 
-
-const initialState: State = {
+const initialState: InitialState = {
   activeGenre: ALL_GENRES_TITLE,
   films: [],
   filmsCount: FILMS_COUNT,
+  isDataLoaded: false,
+  promo: null,
+  error: '',
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -21,8 +25,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(changeGenre, (state, action) => {
       state.activeGenre = action.payload;
     })
-    .addCase(getFilmsOfGenre, (state) => {
-      state.films = films;
+    .addCase(getFilms, (state, action) => {
+      state.films = action.payload;
+      state.isDataLoaded = true;
     })
     .addCase(resetFilmsGenre, (state) => {
       state.activeGenre = ALL_GENRES_TITLE;
@@ -32,6 +37,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetFilmsCount, (state) => {
       state.filmsCount = FILMS_COUNT;
+    })
+    .addCase(getPromoFilm, (state, action) => {
+      state.promo = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 

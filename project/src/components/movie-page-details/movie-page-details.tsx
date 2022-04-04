@@ -40,7 +40,7 @@ function MoviePageDetails({films}: MoviePageDetailsProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{convertRuntime(currentFilm.duration)}</span>
+          <span className="film-card__details-value">{convertRuntime(currentFilm.runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
@@ -48,7 +48,7 @@ function MoviePageDetails({films}: MoviePageDetailsProps): JSX.Element {
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Released</strong>
-          <span className="film-card__details-value">{currentFilm.releaseDate}</span>
+          <span className="film-card__details-value">{currentFilm.released}</span>
         </p>
       </div>
     </div>
