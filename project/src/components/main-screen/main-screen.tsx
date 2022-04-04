@@ -1,17 +1,13 @@
 import { Link } from 'react-router-dom';
-import { Film } from '../../types/film';
 import FilmsList from '../film-list/film-list';
 import GenreList from '../../components/genres/genres';
 import { useAppSelector } from '../../hooks';
 import ShowMore from  '../show-more/show-more';
 import { ALL_GENRES_TITLE } from '../../constants';
+import { Film } from '../../types/film';
 
 type PromoFilmCard = {
-  promo: {
-    title: string,
-    genre: string,
-    releaseDate: number
-  },
+  promo: Film,
   films: Film[],
 };
 
@@ -24,7 +20,7 @@ function MainScreen({promo, films}: PromoFilmCard): JSX.Element {
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={promo.backgroundImage} alt={promo.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -53,14 +49,14 @@ function MainScreen({promo, films}: PromoFilmCard): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+              <img src={promo.posterImage} alt={promo.name} width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{promo.title}</h2>
+              <h2 className="film-card__title">{promo.name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{promo.genre}</span>
-                <span className="film-card__year">{promo.releaseDate}</span>
+                <span className="film-card__year">{promo.released}</span>
               </p>
 
               <div className="film-card__buttons">

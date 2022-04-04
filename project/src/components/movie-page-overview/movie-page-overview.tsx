@@ -21,7 +21,7 @@ function MoviePageOverview({films}: MoviePageOverviewProps): JSX.Element {
         <div className="film-rating__score">{currentFilm.rating}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">Very good</span>
-          <span className="film-rating__count">{currentFilm.scores} ratings</span>
+          <span className="film-rating__count">{currentFilm.scoresCount} ratings</span>
         </p>
       </div>
 
